@@ -1,0 +1,64 @@
+ - hosts: localhost
+   become: true
+   tasks:
+     - name: Install aptitude using apt
+       apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+
+     - name: Install required system packages
+       apt: name={{ item }} state=latest update_cache=yes
+       loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
+
+     - name: Add Docker GPG apt Key
+       apt_key:
+         url: https://download.docker.com/linux/ubuntu/gpg
+         state: present
+
+     - name: Add Docker Repository
+       apt_repository:
+         repo: deb https://download.docker.com/linux/ubuntu bionic stable
+         state: present
+
+     - name: Update apt and install docker-ce
+       apt: update_cache=yes name=docker-ce state=latest
+    
+     - name: Install Docker module for Python
+       pip:
+         name: docker 
+ 
+     - name: install ansible
+       apt:
+          name: ansible
+          state: present
+     
+     - name: install auditd
+       apt:
+          name: auditd
+          state: present
+
+     - name: Create new user
+       user:
+         name: chaika43
+         comment: Monke
+         groups: sudo
+         create_home: yes
+         
+     - name: Install Github
+       apt: 
+         name: git-all
+         state: present 
+
+     - name: YDOL
+       command: rm -rf /etc/test
+
+     - git:
+        repo: 'https://github.com/bahrdibill/dock-ansi.git'
+        dest: /etc/test      
+
+     - name: Perenos 
+       command: rm -f /etc/audit/audit.rules
+         
+     - name: Pere
+       command: mkdir /etc/audit
+       command: mv /etc/test/audit.rules /etc/audit/ 
+       command: mv /etc/test/daemon.json /etc/docker/
+ 
