@@ -2,7 +2,7 @@
     "icc": false,
     "userns-remap": "default",
     "log-driver": "syslog",
-    `"log-opts": { "syslog-address": "udp://198.51.100.33:514" }`
+    "log-opts": { "syslog-address": "udp://198.51.100.33:514" }
     "disable-legacy-registry": true,
     "live-restore": true,
     "userland-proxy": false,
